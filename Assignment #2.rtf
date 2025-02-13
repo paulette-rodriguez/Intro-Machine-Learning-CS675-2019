@@ -1,0 +1,269 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh15520\viewkind0
+\deftab560
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\fs24 \cf0 import sys\
+Import math\
+from random import *\
+import numpy as np\
+\
+def dot_product(w,x):\
+    dp = 0\
+    for j in range(0,cols,1):\
+        dp += w[j] * x[j]\
+    return dp\
+\
+datafile = sys.argv[1]\
+f=open(datafile)\
+data = []\
+i = 0\
+l = f.readline()\
+\
+##################\
+#### Read data\
+##################\
+\
+while(l != ''):\
+    a = l.split()\
+    l2 = []\
+    for j in range(0,len(a),1):\
+        l2.append(float(a[j]))\
+    data.append(l2)\
+    l = f.readline()\
+\
+rows = len(data)\
+cols = len(data[0])\
+f.close()\
+\
+##################\
+#### Read labels\
+##################\
+\
+labelfile = sys.argv[2]\
+f = open(labelfile)\
+trainlabels = \{\}\
+n = []\
+n.append(0)\
+n.append(0)\
+\
+l = f.readline()\
+while(l != ''):\
+    a = l.split()\
+    trainlabels[int(a[1])] = int(a[0])\
+    l = f.readline()\
+    n[int(a[0])] += 1\
+\
+##################\
+#### Initialize W\
+##################\
+\
+w = []\
+for j in range(0, cols, 1):\
+    w.append(0)\
+    w[j] = 0.0002*random(1)-0.0001\
+\
+#for j in range(0, cols, 1):\
+    #w[j] = 0.02*random()-0.01\
+\
+\
+########################\
+####### Gradient descent iteration\
+########################\
+\
+eta =0.001\
+stop = 0.001\
+dellf = []\
+prevdellf = []\
+difference = stop + 0.0001\
+iterations = 1000\
+\
+for i in range(0, cols, 1):\
+    dellf.append(0)\
+    prevdellf.append(0)\
+\
+prevdellf = dellf\
+#counter = 0\
+while ((difference) > 0.001):\
+#for k in range(0,iterations,1):\
+    for i in range(0, rows, 1):\
+        if(trainlabels.get(i) != None):\
+            dp = dot_product(w,data[i])\
+            #dp = np.dot(w,data[i])\
+            #dp = np.dot(np.transpose(w),data[i])\
+            for j in range(0, cols, 1):\
+                #print(prevdellf[j])\
+                dellf[j] += 2*((trainlabels.get(i)-dp)*data[i][j])\
+                difference = abs(dellf[j]-prevdellf[j])\
+                prevdellf[j] = dellf[j]\
+                #counter +=1\
+                #print(dellf[j])\
+###########\
+#### Update w\
+###########\
+\
+    for j in range(0,cols,1):\
+        w[j] = w[j] + eta*dellf[j]\
+\
+    error = 0\
+\
+    for i in range(0,rows,1):\
+        if(trainlabels.get(i) != None):\
+            error += (trainlabels.get(i) - dot_product((w),data[i]))**2\
+    #print("Error is ", error)\
+\
+print("w = ")\
+normw = 0\
+for j in range(0,cols,1):\
+    normw += w[j]**2\
+    print(w[j])\
+\
+normw = sqrt(normw)\
+print("||w|| = ", normw)\
+d_origin = abs(w[(len(w)-1)]/normw)\
+print("Distance to origin = ", d_origin)\
+\
+\
+##################\
+#### Prediction\
+##################\
+\
+for i in range(0, rows, 1):\
+    if(trainlabels.get(i) == None):\
+	dp = 0\
+	for j in range(0,cols,1):\
+		dp = dot_product(w,data[i])\
+        if(dp > 0):\
+            print("1 ",i)\
+        else:\
+            print("0 ",i)\
+\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+class(i) = trainlabels.get(i)\
+============================================================\
+import sys\
+import math\
+from random import *\
+import numpy as np\
+\
+datafile = sys.argy[1]\
+f = open(datafile)\
+data = []\
+i = 0\
+l = f.readline()\
+\
+##############\
+## Read Data\
+##############\
+while(l != ''):\
+        a = l.split()\
+        l2 = []\
+        for j in range(0, len(a), 1):\
+                l2.append(float(a[j]))\
+        data.append(l2)\
+        l = f.readline()\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 #print(data[0]) \
+rows = len(data)\
+cols = len(data[0])\
+f.close()  \
+\
+#################\
+#### Read labels\
+#################\
+labelfile = sys.argv[2]\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0  = open(labelfile)\
+trainlabels = \{\}\
+n = []\
+n.append(0)  \
+n.append(0)\
+l = f.readline()\
+while(l != ''):\
+        a = l.split()\
+        trainlabels[int(a[1])] = int(a[0])\
+        l = f.readline()\
+\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 ###########\
+#Initialize W\
+########## \
+w = []\
+for j in range(0, cols, 1):\
+        w.append(0)\
+	w[j] = 0.0002*random()-0.001\
+        \
+#w[j] = 0.002 * ran(1) - 0.0001\
+\
+###################\
+####Gradient descent\
+###################\
+eta = 0.001\
+\
+###############\
+##Compute dellf\
+###############\
+def dot_product(w,x):\
+	dp = 0\
+	for j in range(0, cols, 1):\
+		dp += w[j] * x[j]\
+	return dp\
+\
+dellf = []\
+for j in range(0, cols, 1):\
+        dellf.append(0)\
+\
+for i in range(0, rows, 1):\
+        if(trainlabels.get != None and trainlabels[i] == 0):\
+                for j in range(0, cols, 1):\
+                        dp = dot_product(w, data[i])\
+        if(trainlabels.get != None and trainlabels[i] == 1):\
+     for j in range(0, cols, 1):\
+                        dellf[j] += (trainlabels.get(i) - dp)*data[i][j]\
+\
+##########\
+##Update w\
+##########\
+for  j in range(0, cols, 1):\
+        w[j] = w[j] + eta*dellf[j]\
+        \
+error = 0\
+##############\
+#Compute error\
+##############\
+for i in range(0, rows, 1):\
+if(trainlabels.get[I] == 1):\
+                error += (trainlabels.get(i) - dot_product(w, data[i]))**2\
+print(error)\
+\
+print(\'93w= \'93, w)\
+        \
+normw = 0\
+for j in range(0, cols, 1):\
+normw += w[j]**2\
+             \
+normw = sqrt(normw)\
+d_origin = w[w-1]/normw\
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+###########\
+\pard\pardeftab560\slleading20\partightenfactor0
+\cf0 ##Prediction\
+###########\
+for i in range(0, rows, 1):\
+        if(trainlabels.get(i) == None):\
+		dp = 0\
+		for j in range(0, cols, 1):\
+               	 	dp = dot_product(\\w, data[I])\
+        if(dp>0):\
+                print(\'940 \'93,i)\
+        else:\
+                print(\'931 \'93,i)\
+}

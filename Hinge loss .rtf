@@ -1,0 +1,132 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red191\green100\blue38;\red32\green32\blue32;\red153\green168\blue186;
+\red86\green132\blue173;\red117\green114\blue185;\red109\green109\blue109;\red88\green118\blue71;\red254\green187\blue91;
+}
+{\*\expandedcolortbl;;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c33725\c51765\c67843;\csgenericrgb\c45882\c44706\c72549;\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c34510\c46275\c27843;\csgenericrgb\c99608\c73333\c35686;
+}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 import \cf4 sys\
+\cf2 from \cf4 math \cf2 import \cf4 *\
+\cf2 from \cf4 random \cf2 import \cf4 *\
+\
+datafile = sys.argv[\cf5 1\cf4 ]\
+f = \cf6 open\cf4 (datafile)\
+data = []\
+i = \cf5 0\
+\cf4 l = f.readline()\
+\
+\cf7 ##############\
+## Read Data\
+##############\
+\cf2 while \cf4 (l != \cf8 ''\cf4 ):\
+    a = l.split()\
+    l2 = []\
+    \cf2 for \cf4 j \cf2 in \cf6 range\cf4 (\cf5 0\cf2 , \cf6 len\cf4 (a)\cf2 , \cf5 1\cf4 ):\
+        l2.append(\cf6 float\cf4 (a[j]))\
+    l2.append(\cf6 float\cf4 (\cf5 0\cf4 ))\
+    data.append(l2)\
+    data[i][\cf6 len\cf4 (a)] = \cf6 float\cf4 (\cf5 1\cf4 )\
+    i = i + \cf5 1\
+    \cf4 l = f.readline()\
+\
+rows = \cf6 len\cf4 (data)\
+cols = \cf6 len\cf4 (data[\cf5 0\cf4 ])\
+f.close()\
+\
+\cf7 #################\
+#### Read labels\
+#################\
+\cf4 labelfile = sys.argv[\cf5 2\cf4 ]\
+f = \cf6 open\cf4 (labelfile)\
+trainlabels = \{\}\
+n = []\
+n.append(\cf5 0\cf4 )\
+n.append(\cf5 0\cf4 )\
+l = f.readline()\
+\cf2 while \cf4 (l != \cf8 ''\cf4 ):\
+    a = l.split()\
+    trainlabels[\cf6 int\cf4 (a[\cf5 1\cf4 ])] = \cf6 int\cf4 (a[\cf5 0\cf4 ])\
+    \cf2 if\cf4 (trainlabels[\cf6 int\cf4 (a[\cf5 1\cf4 ])] == \cf5 0\cf4 ):\
+        trainlabels[\cf6 int\cf4 (a[\cf5 1\cf4 ])] = -\cf5 1\
+    \cf4 l = f.readline()\
+\
+\cf7 ###############\
+##Initialize W\
+##############\
+\cf4 w = []\
+\cf2 for \cf4 j \cf2 in \cf6 range\cf4 (\cf5 0\cf2 , \cf4 cols\cf2 , \cf5 1\cf4 ):\
+    w.append(\cf5 0\cf4 )\
+    w[j] = \cf5 0.02 \cf4 * random() - \cf5 0.01\
+\
+\cf7 ###################\
+## Gradient descent\
+###################\
+\cf4 eta = \cf5 0.001\
+\
+\cf7 #Compute dellf\
+\cf2 def \cf9 dot_product\cf4 (w\cf2 ,\cf4 x):\
+    dp = \cf5 0\
+    \cf2 for \cf4 j \cf2 in \cf6 range \cf4 (\cf5 0\cf2 , \cf4 cols\cf2 , \cf5 1\cf4 ):\
+        dp += w[j] * x[j]\
+        \cf2 return \cf4 dp\
+prevobj = \cf5 10000\
+\cf4 error = \cf5 0\
+\cf2 while \cf4 (\cf6 abs\cf4 (prevobj - error) > \cf5 0.001\cf4 ):\
+    dellf = []\
+    wprime = []\
+    \cf2 for \cf4 j \cf2 in \cf6 range\cf4 (\cf5 0\cf2 , \cf4 cols\cf2 , \cf5 1\cf4 ):\
+        dellf.append(\cf5 0\cf4 )\
+        wprime.append(\cf5 0\cf4 )\
+\
+    \cf2 for \cf4 i \cf2 in \cf6 range \cf4 (\cf5 0\cf2 , \cf4 rows\cf2 , \cf5 1\cf4 ):\
+        \cf2 if\cf4 (trainlabels.get(i) != \cf2 None\cf4 ):\
+            dp = dot_product(w\cf2 ,\cf4 data[i])\
+            \cf2 for \cf4 j \cf2 in \cf6 range\cf4 (\cf5 0\cf2 , \cf4 cols\cf2 , \cf5 1\cf4 ):\
+                \cf2 if \cf4 (trainlabels.get(i)*(dp) < \cf5 1\cf4 ):\
+                    wprime[j] = (-data[i][j])*trainlabels.get(i)\
+                \cf2 elif\cf4 ((trainlabels.get(i)*(dp)) >= \cf5 1\cf4 ):\
+                    wprime[j] = \cf5 0.0\
+                \cf4 dellf[j] += -\cf5 1\cf4 *wprime[j]\
+    \cf2 for \cf4 j \cf2 in \cf6 range\cf4 (\cf5 0\cf2 , \cf4 cols\cf2 , \cf5 1\cf4 ):\
+        w[j] = w[j] + eta*dellf[j]\
+\
+    prevobj = error\
+    error = \cf5 0\
+\
+\cf7 ########\
+## Eta\
+######\
+\cf4 eta_list = [\cf5 1\cf2 , \cf5 .1\cf2 , \cf5 .01\cf2 , \cf5 .001\cf2 , \cf5 .0001\cf2 , \cf5 .00001\cf2 , \cf5 .000001\cf2 , \cf5 .0000001\cf2 , \cf5 .00000001\cf2 , \cf5 .000000001\cf2 , \cf5 .0000000001\cf2 , \cf5 .00000000001\cf4 ]\
+bestobj = \cf5 1000000000000\
+\cf2 for \cf4 k \cf2 in \cf6 range\cf4 (\cf5 0\cf2 , \cf6 len\cf4 (eta_list)\cf2 , \cf5 1\cf4 ):\
+    eta = eta_list[k]\
+\
+\cf7 #Compute error/objective\
+    \cf2 for \cf4 i \cf2 in \cf6 range\cf4 (\cf5 0\cf2 , \cf4 rows\cf2 , \cf5 1\cf4 ):\
+        \cf2 if\cf4 (trainlabels.get(i) != \cf2 None\cf4 ):\
+            error += \cf6 max\cf4 (\cf5 0\cf2 , \cf5 1 \cf4 - (trainlabels.get(i)*dot_product(w\cf2 ,\cf4 data[i])))\
+    \cf6 print\cf4 (error)\
+\
+\cf7 #print("w = ",w)\
+\
+\cf4 normw = \cf5 0\
+\cf2 for \cf4 j \cf2 in \cf6 range\cf4 (\cf5 0\cf2 , \cf4 cols - \cf5 1\cf2 , \cf5 1\cf4 ):\
+    normw += w[j]**\cf5 2\
+\
+\cf4 normw = sqrt(normw)\
+d_origin = w[\cf6 len\cf4 (w)-\cf5 1\cf4 ]/normw\
+\
+\
+\cf7 #Prediction\
+\cf2 for \cf4 i \cf2 in \cf6 range\cf4 (\cf5 0\cf2 , \cf4 rows\cf2 , \cf5 1\cf4 ):\
+    \cf2 if\cf4 (trainlabels.get(i) == \cf2 None\cf4 ):\
+        dp = dot_product(w\cf2 ,\cf4 data[i])\
+        \cf2 if\cf4 (dp > \cf5 0\cf4 ):\
+            \cf6 print\cf4 (\cf8 "1 "\cf2 ,\cf4 i)\
+        \cf2 else\cf4 :\
+            \cf6 print\cf4 (\cf8 "0 "\cf2 ,\cf4 i)\
+}

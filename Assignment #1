@@ -1,0 +1,205 @@
+Last login: Thu Sep 19 17:39:25 on ttys000
+Paulettes-MacBook-Pro:~ pauletterodriguez$ ssh -l pr447 afs1.njit.edu
+Password: 
+Last login: Wed Sep 18 20:56:18 2019 from 10.192.241.242
+Starting /afs/cad/u/p/r/pr447/.bash_profile ... standard AFS bash profile
+
+========================
+==> AFS disk quota in your home directory [ /afs/cad/u/p/r/pr447 ] :	
+Volume Name                    Quota       Used %Used   Partition
+user.pr447                   1000000        404    0%         64%  
+
+		Quota = 1.00   Gbytes    
+
+		Used  = 0.00   Gbytes    
+
+		  Note: "Partition" refers to the percentage use of the disk
+			 that the AFS volume is on.
+	
+		
+	To free up disk space, including Firefox & Chrome cache, enter : 
+			
+			clean.home
+			(/usr/ucs/bin/clean.home)
+
+Calculating Firefox cache usage ...
+Put a file named "NoCalcCache" in your home directory to suppress.
+
+========================
+
+On host afsconnect1.njit.edu :
+	 21:50:37 up 37 days,  6:14, 18 users,  load average: 0.12, 0.32, 0.60
+
+=== === === Your Kerberos ticket and AFS token status === === ===
+Kerberos :  Renew until 10/19/2019 21:50:35, Flags: FRI
+AFS      :  User's (AFS ID 120328) tokens for afs@cad.njit.edu [Expires Sep 20 07:50]
+
+
+=== === === Start Python Information === === ===
+1. The default python is Anaconda Python 3
+
+2. To instead use Anaconda Python 2 :
+
+	echo 'module load python2' > ~/.modules
+
+	Then log out / log in 
+=== === === End Python Information === === ===
+
+Loading [ python3.6 java12 matlab/2019a ] modules ...
+Currently Loaded Modulefiles:
+  1) python3.6       2) java12/12.0.2   3) matlab/2019a
+
+
+To see your aliases, enter "alias"
+
+afsconnect1-41 ~ >: osl7
+-bash: osl7: command not found
+afsconnect1-42 ~ >: ssh osl7
+The authenticity of host 'osl7 (128.235.44.57)' can't be established.
+ECDSA key fingerprint is SHA256:QhAMrpBAsUigFs4abf3XZzmEo2EewVuR4ZvnuQje25I.
+ECDSA key fingerprint is MD5:f9:6b:5b:6b:76:40:2a:6b:aa:c1:b2:ff:3d:17:b3:4f.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'osl7,128.235.44.57' (ECDSA) to the list of known hosts.
+Starting /afs/cad/u/p/r/pr447/.bash_profile ... standard AFS bash profile
+
+========================
+==> AFS disk quota in your home directory [ /afs/cad/u/p/r/pr447 ] :	
+Volume Name                    Quota       Used %Used   Partition
+user.pr447                   1000000        404    0%         64%  
+
+		Quota = 1.00   Gbytes    
+
+		Used  = 0.00   Gbytes    
+
+		  Note: "Partition" refers to the percentage use of the disk
+			 that the AFS volume is on.
+	
+		
+	To free up disk space, including Firefox & Chrome cache, enter : 
+			
+			clean.home
+			(/usr/ucs/bin/clean.home)
+
+Calculating Firefox cache usage ...
+Put a file named "NoCalcCache" in your home directory to suppress.
+
+========================
+
+On host osl7.njit.edu :
+	 21:53:15 up 2 days,  6:12,  3 users,  load average: 0.00, 0.01, 0.09
+
+=== === === Your Kerberos ticket and AFS token status === === ===
+Kerberos :  Renew until 10/19/2019 21:50:35, Flags: FfRT
+AFS      : 
+
+=== === === Start Python Information === === ===
+1. The default python is Anaconda Python 3
+
+2. To instead use Anaconda Python 2 :
+
+	echo 'module load python2' > ~/.modules
+
+	Then log out / log in 
+=== === === End Python Information === === ===
+
+Loading [ python3.6 java12 matlab/2019a ] modules ...
+Currently Loaded Modulefiles:
+  1) python3.6       2) java12/12.0.2   3) matlab/2019a
+
+
+To see your aliases, enter "alias"
+
+osl7-41 ~ >: wget https://web.njit.edu/~usman/courses/cs675_fall18/datasets/breast_cancer.tgz
+--2019-09-19 21:53:37--  https://web.njit.edu/~usman/courses/cs675_fall18/datasets/breast_cancer.tgz
+Resolving web.njit.edu (web.njit.edu)... 128.235.208.46
+Connecting to web.njit.edu (web.njit.edu)|128.235.208.46|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 61917 (60K) [application/x-gzip]
+Saving to: ‘breast_cancer.tgz.3’
+
+100%[======================================>] 61,917      --.-K/s   in 0.001s  
+
+2019-09-19 21:53:37 (63.4 MB/s) - ‘breast_cancer.tgz.3’ saved [61917/61917]
+
+osl7-42 ~ >: cd breast_cancer/
+osl7-43 breast_cancer >: less -S breast_cancer.data
+osl7-44 breast_cancer >: wc -l breast_cancer.data
+569 breast_cancer.data
+osl7-45 breast_cancer >: wc -l breast_cancer.labels
+569 breast_cancer.labels
+osl7-46 breast_cancer >: less -S breast_cancer.labels
+osl7-47 breast_cancer >: pico assignment1.py
+osl7-48 breast_cancer >: python assignment.py breast_cancer.data breast_cancer.trainlabels.0
+python: can't open file 'assignment.py': [Errno 2] No such file or directory
+osl7-49 breast_cancer >: python assignment1.py breast_cancer.data breast_cancer.trainlabels.0
+0  1
+0  10
+0  33
+0  36
+1  40
+1  48
+0  53
+0  54
+1  61
+0  64
+1  74
+1  76
+0  78
+0  81
+1  84
+0  99
+0  105
+1  107
+1  110
+1  111
+1  113
+1  116
+0  132
+0  151
+1  179
+0  180
+1  185
+0  190
+1  195
+0  208
+1  209
+1  224
+1  231
+1  263
+1  273
+0  277
+1  314
+1  319
+1  324
+0  335
+1  348
+1  354
+1  356
+0  369
+1  403
+1  411
+1  438
+1  472
+1  475
+1  478
+1  481
+1  482
+0  512
+1  518
+0  535
+1  554
+0  563
+0  567
+osl7-51 breast_cancer >: cp assignment1.py /afs/cad/courses/ccs/f19/cs/675/001/pr447
+osl7-52 breast_cancer >: ls
+assignment1.py               breast_cancer.trainlabels.4
+breast_cancer.data           breast_cancer.trainlabels.5
+breast_cancer.labels         breast_cancer.trainlabels.6
+breast_cancer.trainlabels.0  breast_cancer.trainlabels.7
+breast_cancer.trainlabels.1  breast_cancer.trainlabels.8
+breast_cancer.trainlabels.2  breast_cancer.trainlabels.9
+breast_cancer.trainlabels.3
+osl7-53 breast_cancer >: cd /afs/cad/courses/ccs/f19/cs/675/001/pr447
+osl7-54 pr447 >: ls
+assignment1.py
+osl7-55 pr447 >: 
